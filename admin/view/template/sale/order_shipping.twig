@@ -10,15 +10,15 @@
 <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
 <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all" />
 </head>
-<body>
-<div class="container">
+<body style="width:320px;">
+<div class="container-fluid">
   {% for order in orders %}
   <div style="page-break-after: always;">
-    <h1>{{ text_picklist }} #{{ order.order_id }}</h1>
-    <table class="table table-bordered">
+    <h2>{{ text_picklist }} #{{ order.order_id }}</h2>
+    <table class="table table-borderedless">
       <thead>
         <tr>
-          <td colspan="2">{{ text_order_detail }}</td>
+          <td>{{ text_order_detail }}</td>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +29,10 @@
             </address>
             <b>{{ text_telephone }}</b> {{ order.store_telephone }}<br/>
             <b>{{ text_email }}</b> {{ order.store_email }}<br/>
-            <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>
+            <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a>
+          </td>
+        </tr>
+        <tr>
           <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}<br/>
             {% if order.invoice_no %}
             <b>{{ text_invoice_no }}</b> {{ order.invoice_no }}<br/>
@@ -41,62 +44,47 @@
         </tr>
       </tbody>
     </table>
-    <table class="table table-bordered">
+    <table class="table table-borderedless">
       <thead>
         <tr>
-          <td style="width: 50%;"><b>{{ text_shipping_address }}</b></td>
-          <td style="width: 50%;"><b>{{ text_contact }}</b></td>
+          <td><b>{{ text_shipping_address }}</b></td>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{ order.shipping_address }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-borderedless">
+      <thead>
+        <tr>
+          <td><b>{{ text_contact }}</b></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
           <td>{{ order.email }}<br/>
             {{ order.telephone }}</td>
         </tr>
       </tbody>
     </table>
-    <table class="table table-bordered">
+    <table class="table table-borderedless">
       <thead>
         <tr>
-          <td><b>{{ column_location }}</b></td>
-          <td><b>{{ column_reference }}</b></td>
-          <td><b>{{ column_product }}</b></td>
-          <td><b>{{ column_weight }}</b></td>
-          <td><b>{{ column_model }}</b></td>
-          <td class="text-right"><b>{{ column_quantity }}</b></td>
+          <td style="width:80%"><b>{{ column_product }}</b></td>
+          <td style="width:20%" class="text-right"><b>{{ column_quantity }}</b></td>
         </tr>
       </thead>
       <tbody>
         {% for product in order.product %}
         <tr>
-          <td>{{ product.location }}</td>
-          <td>{% if product.sku %}
-            {{ text_sku }} {{ product.sku }}<br/>
-            {% endif %}
-            {% if product.upc %}
-            {{ text_upc }} {{ product.upc }}<br/>
-            {% endif %}
-            {% if product.ean %}
-            {{ text_ean }} {{ product.ean }}<br/>
-            {% endif %}
-            {% if product.jan %}
-            {{ text_jan }} {{ product.jan }}<br/>
-            {% endif %}
-            {% if product.isbn %}
-            {{ text_isbn }} {{ product.isbn }}<br/>
-            {% endif %}
-            {% if product.mpn %}
-            {{ text_mpn }}{{ product.mpn }}<br/>
-            {% endif %}</td>
-          <td>{{ product.name }}
+          <td style="width:50%">{{ product.name }}
             {% for option in product.option %}
             <br/>
             &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
             {% endfor %}</td>
-          <td>{{ product.weight }}</td>
-          <td>{{ product.model }}</td>
-          <td class="text-right">{{ product.quantity }}</td>
+          <td style="width:20%" class="text-right">{{ product.quantity }}</td>
         </tr>
         {% endfor %}
       </tbody>
